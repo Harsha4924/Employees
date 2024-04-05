@@ -1,0 +1,48 @@
+{% extends 'create_employee/base.html' %}
+{% block title %}
+    <title>
+        home
+    </title>
+{%endblock%}
+
+{% block style%}
+
+    <style>
+        .button-container {
+            padding: 20px;
+        }
+        
+        .button-container a {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+            margin-right: 10px; /* Add margin between buttons */
+            outline: none;
+        }
+        
+        .button-container a:hover {
+            background-color: #45a049;
+        }
+        </style>
+    
+{% endblock style%}
+
+{% block body%}
+
+<div class="button-container">
+    <a class="add-button" href="{% url 'add_employee' %}">Add Employee</a>
+    <a class="add-button" href="{% url 'remove_employee' %}">Remove Employee</a>
+    <a class="add-button" href="{% url 'get_employee' %}">Get Employee</a>
+    <a class="add-button" href="{% url 'update_employee' %}">Update Employee</a>
+    <a class="add-button" href="{% url 'get_all_employees' %}">Get all Employees</a>
+</div>
+
+{% endblock body%}

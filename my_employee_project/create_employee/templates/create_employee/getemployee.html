@@ -1,0 +1,141 @@
+{% extends 'create_employee/base.html' %}
+{% block title %}
+    <title>
+        home
+    </title>
+{%endblock%}
+
+{% block style%}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin-top: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+    }
+
+    .form-group input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    .submit-btn {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .submit-btn:hover {
+        background-color: #45a049;
+    }
+</style>
+    
+{% endblock style%}
+
+{% block body%}
+<div class="form-container">
+    <h2>Please Enter the ID to get the Employee Details</h2>
+    <form method="post" action="{% url 'get_employee' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="user_id">Employee ID:</label>
+            <input type="text" id="user_id" name="user_id" required>
+        </div>
+        <input type="hidden" name="action" value="employee">
+        <button type="submit" class="submit-btn">Get Employee</button>
+    </form>
+</div>
+
+{% comment %} {%if context%}
+{{employee_details}}
+{{employee_projects}}
+{{employee_work}}
+{{employee_qualifications}}
+{% endif %} {% endcomment %}
+
+
+{% if context %}
+<div class="employee-details">
+    <h3>Employee Details:</h3>
+    <ul>
+        {% for employee in employee_details %}
+        <li>
+            <strong>Name:</strong> {{ employee.name }}<br>
+            <strong>Email:</strong> {{ employee.email }}<br>
+            <strong>Age:</strong> {{ employee.age }}<br>
+            <strong>Gender:</strong> {{ employee.gender }}<br>
+            <strong>Phone Number:</strong> {{ employee.mobile }}<br>
+            <strong>Address:</strong> {{ employee.house_no }}, {{ employee.street }}, {{ employee.city }}, {{ employee.state }}<br>
+            {% comment %} {% if employee.photo %} {% endcomment %}
+            {% comment %} <strong>Photo:</strong> <img src="data:image/jpeg;base64,{{ employee.photo }}" alt="Employee Photo"><br> {% endcomment %}
+            {% comment %} {% endif %} {% endcomment %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="employee-projects">
+    <h3>Employee Projects:</h3>
+    <ul>
+        {% for project in employee_projects %}
+        <li>
+            <strong>Title:</strong> {{ project.title }}<br>
+            <strong>Description:</strong> {{ project.description }}<br>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="employee-work-experience">
+    <h3>Employee Work Experience:</h3>
+    <ul>
+        {% for work_exp in employee_work %}
+        <li>
+            <strong>Company:</strong> {{ work_exp.company }}<br>
+            <strong>From Date:</strong> {{ work_exp.from_date }}<br>
+            <strong>To Date:</strong> {{ work_exp.to_date }}<br>
+            <strong>Work Address:</strong> {{ work_exp.work_address }}<br>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="employee-qualifications">
+    <h3>Employee Qualifications:</h3>
+    <ul>
+        {% for qualification in employee_qualifications %}
+        <li>
+            <strong>Qualification:</strong> {{ qualification.qualification }}<br>
+            <strong>Percentage:</strong> {{ qualification.percentage }}<br>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+
+{% endblock %}

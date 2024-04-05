@@ -1,0 +1,73 @@
+{% extends 'create_employee/base.html' %}
+{% block title %}
+    <title>
+        home
+    </title>
+{%endblock%}
+
+{% block style%}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin-top: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+    }
+
+    .form-group input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    .submit-btn {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .submit-btn:hover {
+        background-color: #45a049;
+    }
+</style>
+    
+{% endblock style%}
+
+{% block body%}
+<div class="form-container">
+    <h2>Please Enter the ID to remove the employee</h2>
+    <form method="post" action="{% url 'remove_employeefrom_db' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="emp_id">Employee ID:</label>
+            <input type="text" id="emp_id" name="emp_id" required>
+        </div>
+        <input type="hidden" name="action" value="delete">
+        <button type="submit" class="submit-btn">Remove Employee</button>
+    </form>
+</div>
+
+{% endblock %}
